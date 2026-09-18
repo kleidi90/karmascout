@@ -42,6 +42,15 @@ or logs in. It only reads public RSS feeds and writes an HTML file of suggestion
 
 No Reddit account or Reddit API key is needed.
 
+### What the report looks like
+
+![KarmaScout report: ranked opportunity cards, each with an AI score badge, the thread
+title and excerpt, and two drafted German comments with copy buttons](docs/report-screenshot.png)
+
+*Each card carries the 1-10 score and the reason for it, the thread's age and subreddit,
+a link to the thread, and the two drafted comments. Drafts containing a link are flagged
+before you copy them.*
+
 > **Why RSS and not the official API?** Reddit closed self-serve API app creation under
 > its Responsible Builder Policy, so OAuth is not obtainable for this project. Public
 > RSS works, but it is rate-limited — see [Rate limits](#rate-limits).
@@ -124,6 +133,7 @@ end to end without spending credit or hitting Reddit's throttle.
 ```
 --output PATH     where to write the report (default: karmascout_results.html)
 --no-browser      write the report but do not open it
+--no-cache        re-score every thread, ignoring verdicts cached by earlier runs
 --log-level LEVEL DEBUG | INFO | WARNING | ERROR | CRITICAL
 --version
 ```
@@ -161,6 +171,7 @@ src/karmascout/
 ├── logging_setup.py   the one configured logger
 ├── reddit_client.py   the ONLY module that talks to Reddit
 ├── scoring.py         the ONLY module that talks to OpenRouter
+├── cache.py           persistent verdict cache, so a repeat thread is not paid for twice
 ├── pipeline.py        orchestration: collect → dedupe → score → filter → rank
 ├── report.py          HTML rendering
 ├── dryrun.py          offline stand-ins for both clients
