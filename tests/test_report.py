@@ -88,8 +88,10 @@ def test_report_shows_the_summary_strip(scored: ScoredItem, settings: Settings) 
     html = render([scored], settings)
     assert f"{settings.min_score}/10" in html
     assert f"{settings.account_karma} karma" in html
-    assert "r/germany" in html
-    assert "Lärmprotokoll" in html
+    # Follow the configured values rather than pinning literals: this test is about
+    # the summary strip listing what a run used, not about what the defaults are.
+    assert f"r/{settings.subreddits[0]}" in html
+    assert settings.keywords[0] in html
 
 
 def test_report_shows_score_age_and_subreddit(scored: ScoredItem, settings: Settings) -> None:
