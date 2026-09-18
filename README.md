@@ -173,6 +173,56 @@ tests/                 mirrors the package; all network calls mocked
 
 ---
 
+## Design decisions
+
+**Public RSS instead of the official API.** Reddit closed self-serve API app creation
+under its Responsible Builder Policy, so OAuth is not obtainable for a project like
+this one. The alternative was not building it. Public Atom endpoints need no account
+and no key, at the cost of a hard per-IP throttle and no access to anything private —
+which is also why the tool can be honestly described as read-only.
+
+**One combined `OR` query per subreddit, not one per keyword.** The obvious approach
+issues one `search.rss` request per subreddit-keyword pair, which is 15 requests per
+subreddit for the default keyword list. Since `search.rss` is throttled per IP,
+request count is the only lever that matters, so `build_combined_query` folds every
+keyword into a single query. Multi-word keywords keep loose `AND` semantics rather
+than exact-phrase, so recall matches the per-keyword version it replaced.
+
+**Bounded concurrency for scoring, strictly sequential for Reddit.** These look
+inconsistent and are deliberate: the two services fail differently. OpenRouter is not
+IP-throttled the way `search.rss` is, so scoring runs on a thread pool of
+`ai_concurrency` workers, each with its own HTTP session. Reddit requests stay
+sequential with a `fetch_delay` between them, and the delay is paid in a `finally` —
+a request that just got a 429 must be followed by more delay, not less.
+
+**A verdict cache, not a seen-set.** Deduplication is per-run, so consecutive runs
+re-score every thread still inside the freshness window; at `max_age_hours=168` that
+is the same week of threads paid for repeatedly. Remembering only that a thread was
+seen would drop it from the report. Caching the verdict instead means a repeat thread
+renders identically for zero spend. Failed scores are never cached, since those are
+transient.
+
+**A cap on paid calls, with the newest kept.** Every collected thread costs one LLM
+call, so a wider keyword list or a busy day spends without a ceiling.
+`max_items_to_score` bounds a run and logs exactly how many it dropped. When the cap
+bites it keeps the newest threads, because the prompt rates 2–20 hours old as ideal
+and the oldest candidates are worth the least.
+
+**Offline dry run as a first-class mode.** `--dry-run` swaps both clients for stand-ins
+that make no requests at all, so the whole pipeline — collection, deduplication,
+scoring, ranking, rendering — can be exercised for free and CI can run it end to end
+on every push. The stand-ins implement the `RedditSource` and `ScoreSource` protocols
+rather than subclassing the live clients; subclassing would leave any un-overridden
+method reaching the network.
+
+**Read-only by design, not by discipline.** There is no posting code path to disable,
+no Reddit credentials to leak, and no OAuth scope to get wrong. Drafts are rendered to
+a local HTML file with copy buttons, and a human decides what to do with them. The
+narrow capability is the point: the tool cannot misbehave on Reddit because it has no
+mechanism to.
+
+---
+
 ## App context — Ruhestörer Logger
 
 KarmaScout surfaces threads where people are frustrated with noisy neighbours so you
