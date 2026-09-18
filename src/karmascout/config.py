@@ -26,6 +26,7 @@ DEFAULT_KEYWORDS: tuple[str, ...] = (
     # Noise + neighbor combos
     "laute Nachbarn",
     "Nachbarn zu laut",
+    "Nachbarn",
     "Nachbar Lärm",
     "Nachbar laute Musik",
     "Nachtruhe Nachbarn",
@@ -38,8 +39,6 @@ DEFAULT_KEYWORDS: tuple[str, ...] = (
 )
 
 DEFAULT_SUBREDDITS: tuple[str, ...] = (
-    # General German-language subs
-    "germany",
     "de",
     "Austria",
     # Topic-specific: renting and neighbour disputes
