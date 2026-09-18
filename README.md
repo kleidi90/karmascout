@@ -7,6 +7,17 @@ you to post **manually**.
 KarmaScout is **read-only** with respect to Reddit. It never posts, comments, votes,
 or logs in. It only reads public RSS feeds and writes an HTML file of suggestions.
 
+## Responsible use
+
+- KarmaScout never posts, comments, votes, or logs in. It reads public RSS and writes
+  a local HTML file.
+- The AI drafts are starting points. A human reviews and edits each one before
+  anything is posted, one at a time.
+- Comments that mention the Ruhestörer Logger app disclose the connection to it, and
+  follow each subreddit's self-promotion rules.
+- No mass posting, no scheduling, no multiple accounts. The tool caps what it surfaces
+  on purpose: `max_items_to_score` bounds a run and `min_score` filters the rest.
+
 ---
 
 ## What it does
@@ -162,5 +173,3 @@ KarmaScout surfaces threads where people are frustrated with noisy neighbours so
 can reply helpfully — building karma while reaching the audience for the **Ruhestörer
 Logger** app (a noise-disturbance logger with PDF export for Germany, Austria, and
 Switzerland).
-
-You write and post every comment yourself. KarmaScout only suggests.
