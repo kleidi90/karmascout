@@ -1,0 +1,33 @@
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+
+# Generated output
+karmascout_results.html
+*.html.tmp
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Environments
+.venv/
+venv/
+
+# Tool caches
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Verdict cache — local, regenerable
+.karmascout_cache.json
+
+# Claude Code local tool permissions — machine-specific
+.claude/settings.local.json
