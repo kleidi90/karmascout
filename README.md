@@ -1,5 +1,11 @@
 # KarmaScout — Reddit Keyword Alert
 
+[![CI](https://img.shields.io/github/actions/workflow/status/kleidi90/karmascout/ci.yml?branch=main&logo=github&label=CI)](https://github.com/kleidi90/karmascout/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue?logo=python&logoColor=white)](https://www.python.org/)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![mypy](https://img.shields.io/badge/mypy-strict-2a6db2)](https://mypy-lang.org/)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 Finds Reddit threads where people are complaining about noisy neighbours or noise
 disturbances, scores each one with an LLM, and drafts two casual German comments for
 you to post **manually**.
