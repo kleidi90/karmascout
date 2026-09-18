@@ -37,7 +37,19 @@ DEFAULT_KEYWORDS: tuple[str, ...] = (
     "Polizei Lärm Nachbarn",
 )
 
-DEFAULT_SUBREDDITS: tuple[str, ...] = ("germany",)
+DEFAULT_SUBREDDITS: tuple[str, ...] = (
+    # General German-language subs
+    "germany",
+    "de",
+    "Austria",
+    # Topic-specific: renting and neighbour disputes
+    "mieten",
+    # Advice and opinion subs where noise complaints surface
+    "AskAGerman",
+    "FragReddit",
+    "Ratschlag",
+    "Unbeliebtemeinung",
+)
 
 #: Feed sorts scanned in pass 2, in order.
 DEFAULT_FEED_SORTS: tuple[str, ...] = ("new", "hot")

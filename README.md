@@ -99,7 +99,7 @@ directory. All are prefixed `KARMASCOUT_`. Only the first is required.
 | `KARMASCOUT_CACHE_PATH` | `.karmascout_cache.json` | Where those verdicts are stored |
 | `KARMASCOUT_FEED_LIMIT` | `100` | Posts requested per feed |
 | `KARMASCOUT_KEYWORDS` | 15 German terms | JSON array; overrides the built-in list |
-| `KARMASCOUT_SUBREDDITS` | `["germany"]` | JSON array; overrides the built-in list |
+| `KARMASCOUT_SUBREDDITS` | 8 German-language subs | JSON array; overrides the built-in list |
 | `KARMASCOUT_FEED_SORTS` | `["new","hot"]` | JSON array of feed sorts for pass 2 |
 
 `.env` is gitignored. Never commit it.
